@@ -1,0 +1,28 @@
+<section class="ytmp-queue-part">
+  <header class="ytmp-queue-header">
+    <span class="ytmp-queue-title">{{localize "YTMP.Queue"}} <span class="ytmp-count">({{queueCount}})</span></span>
+    {{#if canControl}}
+    <span class="ytmp-queue-tools">
+      <button type="button" data-action="shuffle" data-tooltip="{{localize 'YTMP.Shuffle'}}" aria-label="{{localize 'YTMP.Shuffle'}}"><i class="fa-solid fa-shuffle"></i></button>
+      <button type="button" data-action="saveList" data-tooltip="{{localize 'YTMP.SaveQueue'}}" aria-label="{{localize 'YTMP.SaveQueue'}}"><i class="fa-solid fa-floppy-disk"></i></button>
+      <button type="button" data-action="clear" data-tooltip="{{localize 'YTMP.ClearQueue'}}" aria-label="{{localize 'YTMP.ClearQueue'}}"><i class="fa-solid fa-trash"></i></button>
+    </span>
+    {{/if}}
+  </header>
+  <ol class="ytmp-queue">
+    {{#each queue}}
+    <li class="ytmp-track{{#if active}} active{{/if}}{{#if error}} error{{/if}}" data-index="{{index}}" {{#if @root.canControl}}draggable="true"{{/if}}>
+      <span class="ytmp-num">{{#if active}}<i class="fa-solid fa-volume-low"></i>{{else}}{{num}}{{/if}}</span>
+      <img class="ytmp-track-thumb" src="{{thumb}}" alt="" loading="lazy" draggable="false" referrerpolicy="no-referrer">
+      {{#if @root.canControl}}
+      <a class="ytmp-track-title" data-action="playTrack" title="{{title}}">{{#if error}}<i class="fa-solid fa-triangle-exclamation"></i> {{/if}}{{title}}</a>
+      <a class="ytmp-track-remove" data-action="removeTrack" data-tooltip="{{localize 'YTMP.Remove'}}" aria-label="{{localize 'YTMP.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
+      {{else}}
+      <span class="ytmp-track-title" title="{{title}}">{{title}}</span>
+      {{/if}}
+    </li>
+    {{else}}
+    <li class="ytmp-empty">{{localize "YTMP.QueueEmpty"}}</li>
+    {{/each}}
+  </ol>
+</section>

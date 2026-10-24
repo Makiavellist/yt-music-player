@@ -1,0 +1,23 @@
+<footer class="ytmp-footer">
+  {{#if canControl}}
+  <div class="ytmp-library-row">
+    <i class="fa-solid fa-book-bookmark" aria-hidden="true"></i>
+    {{#if hasLibrary}}
+    <select class="ytmp-library" aria-label="{{localize 'YTMP.SavedPlaylists'}}">
+      {{#each library}}<option value="{{this}}">{{this}}</option>{{/each}}
+    </select>
+    <button type="button" data-action="loadList" data-tooltip="{{localize 'YTMP.LoadList'}}" aria-label="{{localize 'YTMP.LoadList'}}"><i class="fa-solid fa-play"></i></button>
+    <button type="button" data-action="appendList" data-tooltip="{{localize 'YTMP.AppendList'}}" aria-label="{{localize 'YTMP.AppendList'}}"><i class="fa-solid fa-plus"></i></button>
+    <button type="button" data-action="deleteList" data-tooltip="{{localize 'YTMP.DeleteList'}}" aria-label="{{localize 'YTMP.DeleteList'}}"><i class="fa-solid fa-trash"></i></button>
+    {{else}}
+    <span class="ytmp-muted">{{localize "YTMP.NoSavedPlaylists"}}</span>
+    {{/if}}
+  </div>
+  {{/if}}
+  <div class="ytmp-toggles">
+    <label class="ytmp-check"><input type="checkbox" data-action="toggleVideo" {{#if showVideo}}checked{{/if}}> {{localize "YTMP.ShowVideo"}}</label>
+    {{#unless isGM}}{{#if broadcastEnabled}}
+    <label class="ytmp-check"><input type="checkbox" data-action="toggleListen" {{#if listening}}checked{{/if}}> {{localize "YTMP.ListenToGM"}}</label>
+    {{/if}}{{/unless}}
+  </div>
+</footer>

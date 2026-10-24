@@ -1,0 +1,35 @@
+{
+  "id": "yt-music-player",
+  "title": "YouTube Music Player",
+  "description": "A system-agnostic music player for Foundry VTT. Play YouTube videos and whole YouTube playlists, repeat a single song, reorder and switch tracks without leaving Foundry, and optionally broadcast the GM's music to every player.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.351"
+  },
+  "authors": [
+    {
+      "name": "Makiavellist",
+      "url": "https://github.com/Makiavellist"
+    }
+  ],
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/player.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "url": "https://github.com/Makiavellist/yt-music-player",
+  "manifest": "https://github.com/Makiavellist/yt-music-player/releases/latest/download/module.json",
+  "download": "https://github.com/Makiavellist/yt-music-player/releases/download/v1.0.0/yt-music-player.zip",
+  "bugs": "https://github.com/Makiavellist/yt-music-player/issues",
+  "readme": "https://github.com/Makiavellist/yt-music-player#readme"
+}

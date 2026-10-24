@@ -1,0 +1,242 @@
+/* ==========================================================
+   YouTube Music Player — styles
+   Tested against Firefox first; WebKit/Chromium rules follow.
+   Colours derive from currentColor so the window follows
+   Foundry's light and dark themes automatically.
+   ========================================================== */
+
+/* Persistent player host. Never display:none — Firefox will not
+   initialise or keep driving an iframe that is not laid out. */
+#ytmp-player-host {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 320px;
+  height: 180px;
+  z-index: 60;
+  pointer-events: none;
+}
+#ytmp-player-host.ytmp-visible {
+  left: auto;
+  right: 330px;
+  top: 16px;
+  pointer-events: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgb(0 0 0 / 0.55);
+  outline: 1px solid rgb(255 255 255 / 0.15);
+}
+#ytmp-player-host iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* Temporary off-screen players used to read playlist contents. */
+.ytmp-offscreen {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+}
+
+/* ---------- Window ---------- */
+.ytmp-app {
+  --ytmp-accent: #e62117;
+  --ytmp-soft: color-mix(in srgb, currentColor 8%, transparent);
+  --ytmp-softer: color-mix(in srgb, currentColor 4%, transparent);
+  --ytmp-line: color-mix(in srgb, currentColor 18%, transparent);
+  --ytmp-dim: color-mix(in srgb, currentColor 65%, transparent);
+  min-width: 340px;
+  min-height: 420px;
+}
+.ytmp-app .window-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  overflow: hidden;
+}
+.ytmp-app button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 30px;
+  margin: 0;
+  cursor: pointer;
+}
+.ytmp-app button:disabled { opacity: 0.4; cursor: default; }
+
+/* ---------- Status ---------- */
+.ytmp-status { display: flex; flex-direction: column; gap: 10px; flex: 0 0 auto; }
+.ytmp-banner {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--ytmp-soft);
+  font-size: 0.85em;
+}
+.ytmp-banner.ytmp-warn { background: color-mix(in srgb, #e0a100 25%, transparent); }
+
+.ytmp-now { display: flex; gap: 12px; align-items: center; min-width: 0; }
+.ytmp-thumb {
+  flex: 0 0 auto;
+  width: 112px;
+  height: 63px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: none;
+  background: var(--ytmp-soft);
+}
+.ytmp-thumb-empty { display: grid; place-items: center; font-size: 1.6em; color: var(--ytmp-dim); }
+.ytmp-meta { min-width: 0; flex: 1 1 auto; }
+.ytmp-title {
+  display: block;
+  font-weight: 600;
+  font-size: 1.05em;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  color: inherit;
+  text-decoration: none;
+}
+a.ytmp-title:hover { text-decoration: underline; }
+.ytmp-author { font-size: 0.85em; color: var(--ytmp-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ytmp-progress, .ytmp-volume { display: flex; align-items: center; gap: 8px; }
+.ytmp-time { font-variant-numeric: tabular-nums; font-size: 0.8em; color: var(--ytmp-dim); min-width: 3.2em; }
+.ytmp-time-duration { text-align: right; }
+.ytmp-volume-value { font-variant-numeric: tabular-nums; font-size: 0.8em; min-width: 2.2em; text-align: right; color: var(--ytmp-dim); }
+
+.ytmp-controls { display: flex; justify-content: center; gap: 6px; }
+.ytmp-controls button { width: 40px; height: 36px; flex: 0 0 auto; border-radius: 50%; }
+.ytmp-controls .ytmp-play { width: 48px; height: 44px; font-size: 1.15em; }
+.ytmp-repeat { position: relative; }
+.ytmp-repeat.active { color: var(--ytmp-accent); }
+.ytmp-repeat-one {
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  font-size: 0.6em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ---------- Range inputs (Firefox first) ---------- */
+.ytmp-range {
+  --ytmp-fill: 0%;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.ytmp-range:disabled { cursor: default; opacity: 0.6; }
+.ytmp-range:focus-visible { outline: 2px solid var(--ytmp-accent); outline-offset: 2px; }
+
+/* Firefox */
+.ytmp-range::-moz-range-track { height: 4px; border-radius: 2px; background: var(--ytmp-line); }
+.ytmp-range::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--ytmp-accent); }
+.ytmp-range::-moz-range-thumb {
+  width: 12px; height: 12px; border: none; border-radius: 50%;
+  background: var(--ytmp-accent);
+}
+/* WebKit / Chromium / Electron */
+.ytmp-range::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--ytmp-accent) var(--ytmp-fill), var(--ytmp-line) var(--ytmp-fill));
+}
+.ytmp-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px; margin-top: -4px; border: none; border-radius: 50%;
+  background: var(--ytmp-accent);
+}
+
+/* ---------- Add box ---------- */
+.ytmp-add { display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto; }
+.ytmp-add.ytmp-hidden { display: none; }
+.ytmp-add .ytmp-url { width: 100%; height: 32px; }
+.ytmp-add-buttons { display: flex; gap: 6px; }
+.ytmp-add-buttons button { flex: 1 1 0; }
+
+/* ---------- Queue ---------- */
+.ytmp-queue-part {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 120px;
+  border: 1px solid var(--ytmp-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ytmp-queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 4px 10px;
+  background: var(--ytmp-softer);
+  border-bottom: 1px solid var(--ytmp-line);
+}
+.ytmp-queue-title { font-weight: 600; }
+.ytmp-count { font-weight: normal; color: var(--ytmp-dim); }
+.ytmp-queue-tools { display: flex; gap: 4px; }
+.ytmp-queue-tools button { width: 30px; min-height: 26px; height: 26px; padding: 0; }
+
+.ytmp-queue {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  scrollbar-width: thin; /* Firefox */
+}
+.ytmp-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+.ytmp-track:hover { background: var(--ytmp-soft); }
+.ytmp-track.active { background: color-mix(in srgb, var(--ytmp-accent) 16%, transparent); }
+.ytmp-track.error .ytmp-track-title { color: var(--ytmp-dim); text-decoration: line-through; }
+.ytmp-track.dragging { opacity: 0.4; }
+.ytmp-track.drop-target { border-color: var(--ytmp-accent); }
+.ytmp-track[draggable="true"] { cursor: grab; }
+.ytmp-num { flex: 0 0 1.8em; text-align: right; font-size: 0.8em; color: var(--ytmp-dim); font-variant-numeric: tabular-nums; }
+.ytmp-track.active .ytmp-num { color: var(--ytmp-accent); }
+.ytmp-track-thumb { flex: 0 0 auto; width: 48px; height: 27px; object-fit: cover; border-radius: 3px; border: none; }
+.ytmp-track-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+a.ytmp-track-title { cursor: pointer; }
+.ytmp-track-remove { flex: 0 0 auto; padding: 0 4px; color: var(--ytmp-dim); visibility: hidden; cursor: pointer; }
+.ytmp-track:hover .ytmp-track-remove, .ytmp-track-remove:focus { visibility: visible; }
+.ytmp-empty { padding: 16px; text-align: center; color: var(--ytmp-dim); }
+
+/* ---------- Footer ---------- */
+.ytmp-footer { display: flex; flex-direction: column; gap: 8px; flex: 0 0 auto; }
+.ytmp-library-row { display: flex; align-items: center; gap: 6px; }
+.ytmp-library-row select { flex: 1 1 auto; min-width: 0; height: 30px; }
+.ytmp-library-row button { width: 32px; padding: 0; }
+.ytmp-muted { color: var(--ytmp-dim); font-size: 0.85em; }
+.ytmp-toggles { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.9em; }
+.ytmp-check { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.ytmp-check input { margin: 0; }
+
+/* Sidebar button in the Playlists tab */
+.ytmp-open-button { flex: 1 1 100%; }

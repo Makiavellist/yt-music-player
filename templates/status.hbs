@@ -1,0 +1,52 @@
+<section class="ytmp-status">
+  {{#if isFollower}}
+  <div class="ytmp-banner"><i class="fa-solid fa-tower-broadcast"></i> {{localize "YTMP.Following"}}</div>
+  {{/if}}
+  {{#if isLeader}}
+  <div class="ytmp-banner"><i class="fa-solid fa-tower-broadcast"></i> {{localize "YTMP.Broadcasting"}}</div>
+  {{/if}}
+  {{#if needsGesture}}
+  <div class="ytmp-banner ytmp-warn"><i class="fa-solid fa-hand-pointer"></i> {{localize "YTMP.ClickToEnable"}}</div>
+  {{/if}}
+  {{#if busy}}
+  <div class="ytmp-banner"><i class="fa-solid fa-spinner fa-spin"></i> {{busy}}</div>
+  {{/if}}
+
+  <div class="ytmp-now">
+    {{#if now}}
+    <img class="ytmp-thumb" src="{{now.thumb}}" alt="" draggable="false" referrerpolicy="no-referrer">
+    <div class="ytmp-meta">
+      <a class="ytmp-title" href="{{now.url}}" target="_blank" rel="noopener noreferrer" title="{{now.title}}">{{now.title}}</a>
+      <div class="ytmp-author">{{now.author}}</div>
+    </div>
+    {{else}}
+    <div class="ytmp-thumb ytmp-thumb-empty"><i class="fa-solid fa-music"></i></div>
+    <div class="ytmp-meta">
+      <div class="ytmp-title">{{localize "YTMP.NothingPlaying"}}</div>
+      <div class="ytmp-author">{{#if canControl}}{{localize "YTMP.PasteHint"}}{{/if}}</div>
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="ytmp-progress">
+    <span class="ytmp-time ytmp-time-current">0:00</span>
+    <input type="range" class="ytmp-range ytmp-seek" min="0" max="0" step="1" value="0" aria-label="{{localize 'YTMP.Seek'}}" {{#unless canControl}}disabled{{/unless}}>
+    <span class="ytmp-time ytmp-time-duration">0:00</span>
+  </div>
+
+  <div class="ytmp-controls">
+    <button type="button" data-action="previous" data-tooltip="{{localize 'YTMP.Previous'}}" aria-label="{{localize 'YTMP.Previous'}}" {{#unless canControl}}disabled{{/unless}}><i class="fa-solid fa-backward-step"></i></button>
+    <button type="button" class="ytmp-play" data-action="togglePlay" data-tooltip="{{playLabel}}" aria-label="{{playLabel}}" {{#unless canControl}}disabled{{/unless}}><i class="{{playIcon}}"></i></button>
+    <button type="button" data-action="stop" data-tooltip="{{localize 'YTMP.Stop'}}" aria-label="{{localize 'YTMP.Stop'}}" {{#unless canControl}}disabled{{/unless}}><i class="fa-solid fa-stop"></i></button>
+    <button type="button" data-action="next" data-tooltip="{{localize 'YTMP.Next'}}" aria-label="{{localize 'YTMP.Next'}}" {{#unless canControl}}disabled{{/unless}}><i class="fa-solid fa-forward-step"></i></button>
+    <button type="button" class="ytmp-repeat {{repeat.cls}}" data-action="repeat" data-tooltip="{{repeat.label}}" aria-label="{{repeat.label}}" {{#unless canControl}}disabled{{/unless}}>
+      <i class="{{repeat.icon}}"></i>{{#if repeatOne}}<span class="ytmp-repeat-one">1</span>{{/if}}
+    </button>
+  </div>
+
+  <div class="ytmp-volume">
+    <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+    <input type="range" class="ytmp-range ytmp-volume-range" min="0" max="100" step="1" value="{{volume}}" aria-label="{{localize 'YTMP.Volume'}}">
+    <span class="ytmp-volume-value">{{volume}}</span>
+  </div>
+</section>

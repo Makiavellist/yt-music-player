@@ -1,0 +1,9 @@
+<section class="ytmp-add{{#unless canControl}} ytmp-hidden{{/unless}}">
+  {{#if canControl}}
+  <input type="text" class="ytmp-url" value="{{draft}}" placeholder="{{localize 'YTMP.UrlPlaceholder'}}" autocomplete="off" spellcheck="false">
+  <div class="ytmp-add-buttons">
+    <button type="button" data-action="addPlay" data-tooltip="{{localize 'YTMP.PlayNowHint'}}"><i class="fa-solid fa-play"></i> {{localize "YTMP.PlayNow"}}</button>
+    <button type="button" data-action="addQueue" data-tooltip="{{localize 'YTMP.AddToQueueHint'}}"><i class="fa-solid fa-plus"></i> {{localize "YTMP.AddToQueue"}}</button>
+  </div>
+  {{/if}}
+</section>

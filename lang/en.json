@@ -1,0 +1,80 @@
+{
+  "YTMP": {
+    "Title": "YouTube Music Player",
+    "Open": "YouTube Music Player",
+    "OpenButton": "YouTube Music",
+    "Following": "Listening to the GM's music",
+    "Broadcasting": "Broadcasting to players",
+    "ClickToEnable": "Your browser blocked autoplay. Click anywhere to start the GM's music.",
+    "NothingPlaying": "Nothing playing",
+    "PasteHint": "Paste a YouTube video or playlist link below.",
+    "Seek": "Seek",
+    "Previous": "Previous (or restart track)",
+    "Next": "Next",
+    "Stop": "Stop",
+    "Play": "Play",
+    "Pause": "Pause",
+    "RepeatOff": "Repeat: off",
+    "RepeatAll": "Repeat: whole queue",
+    "RepeatOne": "Repeat: this song",
+    "Volume": "Volume (only on this computer)",
+    "UrlPlaceholder": "YouTube video or playlist link…",
+    "PlayNow": "Play now",
+    "PlayNowHint": "Replace the queue and play (Shift+Enter)",
+    "AddToQueue": "Add to queue",
+    "AddToQueueHint": "Append to the queue (Enter)",
+    "Queue": "Queue",
+    "Shuffle": "Shuffle queue",
+    "SaveQueue": "Save queue as playlist",
+    "ClearQueue": "Clear queue",
+    "ClearQueueConfirm": "Remove every track from the queue?",
+    "Remove": "Remove",
+    "QueueEmpty": "The queue is empty.",
+    "SavedPlaylists": "Saved playlists",
+    "LoadList": "Play this saved playlist (replaces queue)",
+    "AppendList": "Append this saved playlist to the queue",
+    "DeleteList": "Delete saved playlist",
+    "DeleteListConfirm": "Delete the saved playlist \"{name}\"?",
+    "NoSavedPlaylists": "No saved playlists yet. Use the save icon on the queue.",
+    "ShowVideo": "Show video",
+    "ListenToGM": "Listen to the GM's music",
+    "PlaylistName": "Name",
+    "Save": "Save",
+    "EndOfQueue": "End of the queue.",
+    "InvalidLink": "That doesn't look like a YouTube video or playlist link.",
+    "LoadingPlaylist": "Loading playlist…",
+    "PlaylistFallback": "Couldn't read the playlist; adding just the linked video.",
+    "AddedTracks": "Added {count} tracks.",
+    "SavedList": "Saved playlist \"{name}\".",
+    "Error": {
+      "Invalid": "\"{title}\": invalid video id.",
+      "Html5": "\"{title}\" can't be played in this browser's HTML5 player.",
+      "NotFound": "\"{title}\" was removed or is private. Skipping.",
+      "NoEmbed": "\"{title}\" doesn't allow playback outside YouTube. Skipping.",
+      "Unknown": "\"{title}\" could not be played."
+    },
+    "Settings": {
+      "Broadcast": {
+        "Name": "Broadcast GM music to players",
+        "Hint": "When on, the GM's player is played on every player's computer, in sync. Players control their own volume. When off, everyone gets a private player."
+      },
+      "Listen": {
+        "Name": "Listen to the GM's music",
+        "Hint": "Turn off to mute the GM's broadcast on this computer and use a private player instead."
+      },
+      "ShowVideo": {
+        "Name": "Show video",
+        "Hint": "Show a small YouTube video window in the corner of the screen."
+      },
+      "NoCookie": {
+        "Name": "Use youtube-nocookie.com",
+        "Hint": "Embed through YouTube's privacy-enhanced domain. Can help when Firefox's strict tracking protection or a content blocker interferes with the player."
+      }
+    },
+    "Keybindings": {
+      "Toggle": "Open / close the music player",
+      "PlayPause": "Play / pause music",
+      "Next": "Next track"
+    }
+  }
+}
