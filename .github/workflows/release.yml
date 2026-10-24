@@ -1,0 +1,72 @@
+# Publishes a GitHub release whenever module.json on main has a version
+# that hasn't been released yet. The release carries module.json and
+# yt-music-player.zip, which is what Foundry's manifest/download URLs point at.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: version
+        run: |
+          VERSION=$(jq -r .version module.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if already released
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release ${{ steps.version.outputs.tag }} already exists; nothing to do."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check download URL matches version
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          EXPECTED="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/yt-music-player.zip"
+          ACTUAL=$(jq -r .download module.json)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error::module.json download is '$ACTUAL' but should be '$EXPECTED'"
+            exit 1
+          fi
+
+      - name: Build zip
+        if: steps.check.outputs.exists == 'false'
+        run: zip -r yt-music-player.zip module.json README.md LICENSE scripts templates styles lang
+
+      - name: Extract release notes
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          awk -v v="${{ steps.version.outputs.version }}" '
+            $0 ~ "^## " { if (found) exit; if (index($0, v)) { found=1; next } }
+            found { print }
+          ' CHANGELOG.md > notes.md
+          [ -s notes.md ] || echo "Release ${{ steps.version.outputs.tag }}" > notes.md
+
+      - name: Create release
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            yt-music-player.zip module.json \
+            --target "${{ github.sha }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --notes-file notes.md \
+            --latest
